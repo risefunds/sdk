@@ -8,12 +8,26 @@ on:
 jobs:
   version:
     runs-on: ubuntu-latest
-    if: '!startsWith(github.event.head_commit.message, "[PRE-RELEASE]")'
     steps:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.RISEFUNDS_BENEDICT_PAT }}
-      - run: git config --global user.name 'derickben'
-      - run: git config --global user.email 'benedictuyioghosas@gmail.com'
-      - run: npm version prerelease --preid=alpha -m "[PRE-RELEASE] %s"
-      - run: git push --follow-tags
+
+      # Check if the commit message starts with "[PRE-RELEASE]"
+      - name: Check for [PRE-RELEASE]
+        id: prerelease_check
+        run: |
+          if [[ "$(git log -1 --pretty=%B)" == "[PRE-RELEASE]"* ]]; then
+            echo "is_prerelease=true" >> $GITHUB_ENV
+          else
+            echo "is_prerelease=false" >> $GITHUB_ENV
+          fi
+
+      # Run version bump if it's not a pre-release
+      - name: Bump version
+        if: env.is_prerelease == 'false'
+        run: |
+          git config --global user.name 'derickben'
+          git config --global user.email 'benedictuyioghosas@gmail.com'
+          npm version prerelease --preid=alpha -m "[PRE-RELEASE] %s"
+          git push --follow-tags
