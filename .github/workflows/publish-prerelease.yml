@@ -8,7 +8,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: 'startsWith(github.event.head_commit.message, "[PRE-RELEASE]")'
+    if: ${{ startsWith(github.event.head_commit.message, '[PRE-RELEASE]') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    if: 'startsWith(github.event.head_commit.message, "[PRE-RELEASE]")'
+    if: ${{ startsWith(github.event.head_commit.message, '[PRE-RELEASE]') }}
     steps:
       - uses: actions/checkout@v2
       - name: Install modules
