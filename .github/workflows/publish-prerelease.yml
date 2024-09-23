@@ -12,11 +12,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.RISEFUNDS_BENEDICT_PAT }} # Use PAT for checkout
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RISEFUNDS_BENEDICT_PAT }} # Use PAT for release creation
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
@@ -28,6 +31,8 @@ jobs:
     if: ${{ startsWith(github.event.head_commit.message, '[PRE-RELEASE]') }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.RISEFUNDS_BENEDICT_PAT }} # Use PAT for checkout
       - name: Install modules
         run: npm install
       - name: Build
@@ -40,4 +45,4 @@ jobs:
       - name: Publish to GitHub Packages
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.RISEFUNDS_BENEDICT_PAT }}
+          NODE_AUTH_TOKEN: ${{ secrets.RISEFUNDS_BENEDICT_PAT }} # Use PAT for publishing
