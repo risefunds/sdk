@@ -5,7 +5,7 @@ import { PlatformUserEntityModel } from './PlatformUserEntityModel';
 import { ICreativeProfileInitialValues } from '../formSchemas/CreativeProfile';
 
 export interface ICreativeUserEntityModel extends IBaseEntityModel {
-  details?: ICreativeProfileInitialValues;
+  details: ICreativeProfileInitialValues;
   featured?: Array<string>;
   portoflioPercentage?: number;
 }
@@ -22,7 +22,7 @@ export class CreativeUserEntityModel
   name: string = 'Creative User';
 
   @Expose()
-  details?: ICreativeProfileInitialValues;
+  details!: ICreativeProfileInitialValues;
 
   constructor(parentReference: IParentReference, id = v4()) {
     super(

@@ -75,10 +75,6 @@ export const getSchema = (): IFormBuilderJSONSchema<{}> => {
         type: 'media',
         title: 'Campaign Card Image',
         subtitle: 'Upload an image that represents your campaign.',
-        validationSchema: [
-          ['yup.string'],
-          ['yup.required', 'Campaign Card Image is required.'],
-        ],
         config: { disableColumns: true, ratio: [16, 9] },
         responsive: { md: 12, xs: 12 },
       },
@@ -179,6 +175,8 @@ export const getSchema = (): IFormBuilderJSONSchema<{}> => {
               value: 'album',
             },
           ],
+          addMore: true,
+          multiple: true,
         },
         validationSchema: [
           ['yup.array'],

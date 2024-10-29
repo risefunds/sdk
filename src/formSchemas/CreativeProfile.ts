@@ -23,12 +23,12 @@ export const getSchema = (): IFormBuilderJSONSchema<{}> => {
         id: 'Profile',
         title: 'Profile',
         fields: [
+          'avatar',
           'firstName',
           'lastName',
           'country',
           'city',
           'postal',
-          'avatar',
           'facebook',
           'twitter',
           'instagram',
