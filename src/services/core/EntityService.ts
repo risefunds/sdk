@@ -226,6 +226,8 @@ export class EntityService<
   }): Promise<ClassObject[]> {
     if (!this.baseService.referenceService.db?.where)
       throw new Error('where not supported');
+    console.log({ query: query.params });
+
     const responses =
       await this.baseService.referenceService.db?.where<JSONModel>(
         this.collection,
