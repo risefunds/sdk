@@ -8,9 +8,11 @@ import { ICreativeDocumentsInitialValues } from '../formSchemas/CreativeDocument
 export interface ICreativeUserEntityModel extends IBaseEntityModel {
   details: ICreativeProfileInitialValues;
   documents: ICreativeDocumentsInitialValues;
-  featured?: Array<string>;
+  featured: Array<string>;
   portoflioPercentage?: number;
 }
+
+export const featuredCreativeOptions = ['community', 'home'];
 
 @Exclude()
 export class CreativeUserEntityModel
@@ -24,7 +26,13 @@ export class CreativeUserEntityModel
   name: string = 'Creative User';
 
   @Expose()
+  featured: Array<string> = [];
+
+  @Expose()
   details!: ICreativeProfileInitialValues;
+
+  @Expose()
+  email!: string;
 
   @Expose()
   documents!: ICreativeDocumentsInitialValues;

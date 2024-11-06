@@ -12,7 +12,7 @@ export interface ICampaignEntityModel
   featured: Array<string>;
 }
 
-export const featuredCampaignOptions = ['showcase', 'ecosystem', 'collaborate'];
+export const featuredCampaignOptions = ['popular', 'featured'];
 
 @Exclude()
 export class CampaignEntityModel
