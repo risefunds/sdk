@@ -12,7 +12,7 @@ export interface ICampaignEntityModel
   featured: Array<string>;
 }
 
-export const featuredCampaignOptions = ['popular', 'featured'];
+export const featuredCampaignOptions = ['popular', 'featured', 'all'];
 
 @Exclude()
 export class CampaignEntityModel
@@ -30,6 +30,12 @@ export class CampaignEntityModel
 
   @Expose()
   featured: Array<string> = [];
+
+  @Expose()
+  currentAmount: number = 0;
+
+  @Expose()
+  targetAmount: number = 1000;
 
   @Expose()
   campaignTitle!: string;
@@ -64,6 +70,13 @@ export class CampaignEntityModel
       parentReference,
       id
     );
+  }
+
+  updateAmount(amt: number): number {
+    if (amt < 0) {
+      throw new Error('Amount cannot be negative.');
+    }
+    return Number(this.currentAmount) + amt;
   }
 
   static fromJSON(json: ICampaignEntityModel): CampaignEntityModel {
