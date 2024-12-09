@@ -3,6 +3,7 @@ import {
   IFormBuilderJSONSchema,
   IGenericMediaObject,
 } from '../types';
+import { categoryOptions } from '../utils/categoryUtils';
 
 export interface ICampaignBasicsInitialValues {
   campaignTitle: string;
@@ -12,6 +13,7 @@ export interface ICampaignBasicsInitialValues {
   campaignCategory?: IFormBuilderAutoCompleteOption;
   campaignTags?: IFormBuilderAutoCompleteOption[];
   campaignDuration: number;
+  targetAmount?: number;
 }
 
 export const campaignBasicsInitialValues: ICampaignBasicsInitialValues = {
@@ -35,6 +37,7 @@ export const getSchema = (): IFormBuilderJSONSchema<{}> => {
           'campaignLocation',
           'campaignCategory',
           'campaignTags',
+          'targetAmount',
           'campaignDuration',
         ],
         isGrid: true,
@@ -60,7 +63,7 @@ export const getSchema = (): IFormBuilderJSONSchema<{}> => {
         id: 'campaignTagline',
         type: 'text',
         title: 'Campaign Tagline',
-        subtitle: 'What is the title of your campaign?',
+        subtitle: 'What is your campaign about?',
         validationSchema: [
           ['yup.string'],
           ['yup.required', 'Campaign Tagline is required.'],
@@ -104,28 +107,7 @@ export const getSchema = (): IFormBuilderJSONSchema<{}> => {
         },
         config: {
           placeholder: 'Category',
-          options: [
-            {
-              label: 'Audio',
-              value: 'Audio',
-            },
-            {
-              label: 'Camera Gear',
-              value: 'Camera Gear',
-            },
-            {
-              label: 'Education',
-              value: 'Education',
-            },
-            {
-              label: 'Energy & Green Tech',
-              value: 'Energy & Green Tech',
-            },
-            {
-              label: 'Fashion & Wearables',
-              value: 'Fashion & Wearables',
-            },
-          ],
+          options: categoryOptions,
         },
         validationSchema: [
           ['yup.object'],
@@ -199,6 +181,13 @@ export const getSchema = (): IFormBuilderJSONSchema<{}> => {
             ],
           ],
         ],
+      },
+      {
+        id: 'targetAmount',
+        type: 'number',
+        title: 'Target Amount',
+        subtitle: 'How much do you want to achieve?',
+        validationSchema: [['yup.number']],
       },
       {
         id: 'campaignDuration',

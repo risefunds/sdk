@@ -1,6 +1,6 @@
 import { Exclude, Expose, plainToClass } from 'class-transformer';
 import { v4 } from 'uuid';
-import { IFormBuilderAutoCompleteOption } from '../types';
+import { IFormBuilderAutoCompleteOption, IStripeObject } from '../types';
 import { EntityModel, IBaseEntityModel } from './EntityModel';
 
 export type IPlatformUserType = 'creative' | 'backer' | 'su';
@@ -11,6 +11,7 @@ interface IPlatformUserEntityModelDetails {
 }
 export interface IPlatformUserEntityModel extends IBaseEntityModel {
   details: IPlatformUserEntityModelDetails;
+  stripeCustomer?: IStripeObject;
 }
 
 @Exclude()
@@ -26,6 +27,9 @@ export class PlatformUserEntityModel
 
   @Expose()
   details!: IPlatformUserEntityModelDetails;
+
+  @Expose()
+  stripeCustomer?: IStripeObject;
 
   constructor(id = v4(), name = 'PlatformUser') {
     super(
